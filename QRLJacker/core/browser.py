@@ -304,18 +304,18 @@ class headless_browsers:
 
         #### COPY 
 
-
-        dest = f"{browser.capabilities['moz:profile']}_copy"
-        src = browser.capabilities['moz:profile']
-        isar_verbosity(f"copy from {src} to {dest}")
-        shutil.copytree(src, dest)
+        isar_verbosity("COPY CODE")
+        # dest = f"{browser.capabilities['moz:profile']}_copy"
+        # src = browser.capabilities['moz:profile']
+        # isar_verbosity(f"copy from {src} to {dest}")
+        # shutil.copytree(src, dest)
 
         browser = self.browsers[module_name]["Controller"]
         profile_file_name = os.path.join( "profiles",time.ctime().replace(" ","-")) + ".pf"
         profile_file = open(profile_file_name,"w")
         profile_file.write(dest)
         profile_file.close()
-        isar_verbosity(f"file name is {dest}")
+        #isar_verbosity(f"file name is {dest}")
         # Set Profile Path as read only
         try:
             isar_verbosity("running the chmod workaround")
@@ -329,7 +329,7 @@ class headless_browsers:
                 )
             isar_verbosity("ran the chmod workaround")
         except Exception as e:
-            if Settings.debug:
+            if Settings.verbose:
                 print("\nProfile save error:")
                 print("  Exception -> "+str(e))
                 print("  Trackback -> ")
@@ -337,7 +337,7 @@ class headless_browsers:
             error("Couldn't set read only permissions for Profile Path")
             warning("Profile Path could be deleted by Selenium when the session is closed")
 
-        if Settings.debug:
+        if Settings.verbose:
             status("Profile location saved in " + profile_file_name)
         
         with open( self.sessions_file ) as f:
