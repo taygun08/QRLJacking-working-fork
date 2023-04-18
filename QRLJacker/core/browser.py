@@ -303,6 +303,8 @@ class headless_browsers:
         # function "os.chmod()"
 
         #### COPY 
+        browser = self.browsers[module_name]["Controller"]
+        
         try:
             isar_verbosity("COPY CODE")
             dest = f"{browser.capabilities['moz:profile']}_copy"
@@ -316,7 +318,7 @@ class headless_browsers:
             traceback.print_exc()
             dest = browser.capabilities['moz:profile']
 
-        browser = self.browsers[module_name]["Controller"]
+        
         profile_file_name = os.path.join( "profiles",time.ctime().replace(" ","-")) + ".pf"
         profile_file = open(profile_file_name,"w")
         profile_file.write(dest)
