@@ -309,8 +309,11 @@ class headless_browsers:
             src = browser.capabilities['moz:profile']
             isar_verbosity(f"copy from {src} to {dest}")
             shutil.copytree(src, dest)
-        except:
+        except Exception as e:
             isar_verbosity("ERROR COPY CODE")
+            print("  Exception -> "+str(e))
+            print("  Trackback -> ")
+            traceback.print_exc()
             dest = browser.capabilities['moz:profile']
 
         browser = self.browsers[module_name]["Controller"]
