@@ -11,6 +11,10 @@ from pathlib2 import Path
 import os, pickle, json, time, threading, functools, traceback, subprocess
 from stat import S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH
 
+def isar_verbosity(msg):
+    if Settings.verbose:
+        status(f"isar says: {msg}")
+
 # In Sessions folder we have a json file contains all data about sessions like ids and cookie file path that saved with pickle
 def generate_profile(useragent="(default)"):
     profile = FirefoxProfile()
@@ -117,6 +121,7 @@ class headless_browsers:
                             # been successful
                             print()
                             status(f"Got session on {module_name} module")
+                            isar_verbosity(f"sessioin is {session_type.lower()}")
                             if session_type.lower() == "localstorage":
                                 self.save_localstorage(module_name)
                             elif session_type.lower() == "cookies":
@@ -163,7 +168,7 @@ class headless_browsers:
             while self.browsers[module_name]["Status"] == "Success":
                 try:
                     misc.Screenshot(controller, img_xpath, module_name)
-                    #if Settings.verbose: status(f"QR code image updated! [{module_name}]")
+                    if Settings.verbose: status(f"QR code image updated! [{module_name}]")
                     time.sleep(3)
                 except:
                     time.sleep(1)
@@ -202,6 +207,7 @@ class headless_browsers:
         webserver.stop_web_server()
 
     def save_localstorage(self,module_name):
+        isar_verbosity("running save_localstorage")
         browser = self.browsers[module_name]["Controller"]
         session_file_name = os.path.join( "sessions",time.ctime().replace(" ","-") )+".session"
         session_file = open(session_file_name,"wb")
@@ -237,6 +243,7 @@ class headless_browsers:
         status("Session saved successfully")
 
     def save_cookie(self,module_name):
+        isar_verbosity("running save_cookie")
         # First let's save the browser cookies before anything
         browser = self.browsers[module_name]["Controller"]
         session_file_name = os.path.join( "sessions",time.ctime().replace(" ","-") )+".session"
@@ -273,6 +280,7 @@ class headless_browsers:
         status("Session saved successfully")
 
     def save_profile(self, module_name):
+        isar_verbosity("running save_profile")
         # Note:
         #
         # function "close()" closes the current window
@@ -300,6 +308,7 @@ class headless_browsers:
 
         # Set Profile Path as read only
         try:
+            isar_verbosity("running the chmod workaround")
             os.chmod(browser.capabilities['moz:profile'], 
                 S_IRUSR |
                 S_IXUSR |
@@ -349,6 +358,7 @@ class headless_browsers:
         
 
     def close_all(self):
+        isar_verbosity("running close_all")
         if self.browsers!={}: # I'm using this comparsion because it's is faster than comparsion with keys length btw
             for module_name in list(self.browsers.keys()):
                 try:
@@ -359,6 +369,7 @@ class headless_browsers:
                 self.browsers[module_name]["Status"]     = None      # To close any listener working on this browser
 
     def close_job(self, module_name):
+        isar_verbosity("running close_job")
         if self.browsers!={}:
             if module_name in list(self.browsers.keys()):
                 try:
@@ -421,6 +432,7 @@ class visible_browsers:
         self.browsers.append(browser)
     
     def load_profile(self, session_id):
+        isar_verbosity("running load_profile")
         try:
             sessions = json.load(open( self.sessions_file ))
             profile_path = sessions[str(session_id)]["session_path"]
