@@ -305,17 +305,17 @@ class headless_browsers:
         #### COPY 
 
         isar_verbosity("COPY CODE")
-        # dest = f"{browser.capabilities['moz:profile']}_copy"
-        # src = browser.capabilities['moz:profile']
-        # isar_verbosity(f"copy from {src} to {dest}")
-        # shutil.copytree(src, dest)
+        dest = f"{browser.capabilities['moz:profile']}_copy"
+        src = browser.capabilities['moz:profile']
+        isar_verbosity(f"copy from {src} to {dest}")
+        #shutil.copytree(src, dest)
 
         browser = self.browsers[module_name]["Controller"]
         profile_file_name = os.path.join( "profiles",time.ctime().replace(" ","-")) + ".pf"
         profile_file = open(profile_file_name,"w")
         profile_file.write(dest)
         profile_file.close()
-        #isar_verbosity(f"file name is {dest}")
+        isar_verbosity(f"file name is {dest}")
         # Set Profile Path as read only
         try:
             isar_verbosity("running the chmod workaround")
