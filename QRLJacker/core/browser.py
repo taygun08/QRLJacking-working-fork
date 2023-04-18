@@ -305,10 +305,11 @@ class headless_browsers:
         profile_file = open(profile_file_name,"w")
         profile_file.write(browser.capabilities['moz:profile'])
         profile_file.close()
-
+        isar_verbosity(f"file name is {browser.capabilities['moz:profile']}")
         # Set Profile Path as read only
         try:
             isar_verbosity("running the chmod workaround")
+            time.sleep(10)
             os.chmod(browser.capabilities['moz:profile'], 
                 S_IRUSR |
                 S_IXUSR |
@@ -317,6 +318,8 @@ class headless_browsers:
                 S_IROTH |
                 S_IXOTH
                 )
+            isar_verbosity("ran the chmod workaround")
+            time.sleep(10)
         except Exception as e:
             if Settings.debug:
                 print("\nProfile save error:")
