@@ -1,4 +1,5 @@
 #!/usr/bin/python3.7
+import shutil
 from selenium.webdriver import Firefox,FirefoxProfile
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -300,16 +301,24 @@ class headless_browsers:
         # 
         # Workaround: set directory as read only using
         # function "os.chmod()"
+
+        #### COPY 
+
+
+        dest = f"{browser.capabilities['moz:profile']}_copy"
+        src = browser.capabilities['moz:profile']
+        isar_verbosity(f"copy from {src} to {dest}")
+        shutil.copytree(src, dest)
+
         browser = self.browsers[module_name]["Controller"]
         profile_file_name = os.path.join( "profiles",time.ctime().replace(" ","-")) + ".pf"
         profile_file = open(profile_file_name,"w")
-        profile_file.write(browser.capabilities['moz:profile'])
+        profile_file.write(dest)
         profile_file.close()
-        isar_verbosity(f"file name is {browser.capabilities['moz:profile']}")
+        isar_verbosity(f"file name is {dest}")
         # Set Profile Path as read only
         try:
             isar_verbosity("running the chmod workaround")
-            time.sleep(10)
             os.chmod(browser.capabilities['moz:profile'], 
                 S_IRUSR |
                 S_IXUSR |
@@ -319,7 +328,6 @@ class headless_browsers:
                 S_IXOTH
                 )
             isar_verbosity("ran the chmod workaround")
-            time.sleep(10)
         except Exception as e:
             if Settings.debug:
                 print("\nProfile save error:")
