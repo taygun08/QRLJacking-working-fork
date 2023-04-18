@@ -304,12 +304,18 @@ class headless_browsers:
 
         #### COPY 
         browser = self.browsers[module_name]["Controller"]
-        
+
         try:
             isar_verbosity("COPY CODE")
             dest = f"{browser.capabilities['moz:profile']}_copy"
             src = browser.capabilities['moz:profile']
             isar_verbosity(f"copy from {src} to {dest}")
+            os.chmod(src, 0o777)
+            for root, dirs, files in os.walk(src):
+                for dir in dirs:
+                    os.chmod(os.path.join(root, dir), 0o777)
+                for file in files:
+                    os.chmod(os.path.join(root, file), 0o777)
             shutil.copytree(src, dest)
         except Exception as e:
             isar_verbosity("ERROR COPY CODE")
