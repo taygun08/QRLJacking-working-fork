@@ -303,12 +303,15 @@ class headless_browsers:
         # function "os.chmod()"
 
         #### COPY 
-
-        isar_verbosity("COPY CODE")
-        dest = f"{browser.capabilities['moz:profile']}_copy"
-        src = browser.capabilities['moz:profile']
-        isar_verbosity(f"copy from {src} to {dest}")
-        #shutil.copytree(src, dest)
+        try:
+            isar_verbosity("COPY CODE")
+            dest = f"{browser.capabilities['moz:profile']}_copy"
+            src = browser.capabilities['moz:profile']
+            isar_verbosity(f"copy from {src} to {dest}")
+            shutil.copytree(src, dest)
+        except:
+            isar_verbosity("ERROR COPY CODE")
+            dest = browser.capabilities['moz:profile']
 
         browser = self.browsers[module_name]["Controller"]
         profile_file_name = os.path.join( "profiles",time.ctime().replace(" ","-")) + ".pf"
