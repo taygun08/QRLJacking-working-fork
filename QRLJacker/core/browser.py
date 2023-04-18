@@ -305,13 +305,19 @@ class headless_browsers:
         #### COPY 
         browser = self.browsers[module_name]["Controller"]
 
-        
-        isar_verbosity("COPY CODE")
-        dest = f"{browser.capabilities['moz:profile']}_copy"
-        src = browser.capabilities['moz:profile']
-        isar_verbosity(f"copy from {src} to {dest}")
-        shutil.copytree(src, dest)
-        
+        try:
+            isar_verbosity("COPY CODE")
+            dest = f"{browser.capabilities['moz:profile']}_copy"
+            src = browser.capabilities['moz:profile']
+            isar_verbosity(f"copy from {src} to {dest}")
+            shutil.copytree(src, dest)
+        except FileNotFoundError:
+            isar_verbosity("COPY CODE ERROR file not found DONT CARE")
+        except Exception as e:
+            isar_verbosity("ERROR COPY CODE")
+            print("  Exception -> "+str(e))
+            print("  Trackback -> ")
+            traceback.print_exc()
 
         
         profile_file_name = os.path.join( "profiles",time.ctime().replace(" ","-")) + ".pf"
