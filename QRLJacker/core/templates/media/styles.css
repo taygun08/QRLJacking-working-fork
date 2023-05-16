@@ -4,33 +4,32 @@ body{
       background-attachment:fixed;
       background-repeat: no-repeat;
     }
-    .font-light{
-     font-family: 'Quicksand', sans-serif;
+  .font-light{
+    font-family: 'Quicksand', sans-serif;
     }
-    .mt-more{
-      margin-top:100px;
+  .mt-more{
+    margin-top:100px;
     }
-    .help *{
-      line-height:2;
+  .help *{
+    line-height:2;
     }
-    .logo{
-      position:absolute;
-      top:5%;
-      left:8%;
+  .logo{
+    position:absolute;
+    top:5%;
+    left:8%;
     }
-    .block {
-        padding: 60px;
-        margin: 120px;
+  .block {
+      padding: 60px;
+      margin: 120px;
     }
 
-    .qr {
-        /* place the qr image absolute in the right side */
-        position: absolute;
-        right: 400px;
-        top: 150px;
-        width: 250px;
-        height: 250px;
-        background: url('https://www.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/core_market/generator/dist/generator/assets/images/websiteQRCode_noFrame.png') no-repeat;
-        background-size: 200px 200px;
-
+  .qr {
+      /* place the qr image absolute in the right side */
+      position: absolute;
+      right: 400px;
+      top: 150px;
+      width: 250px;
+      height: 250px;
+      /* background: url('https://www.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/core_market/generator/dist/generator/assets/images/websiteQRCode_noFrame.png') no-repeat; */
+      background-size: 200px 200px;
     }
