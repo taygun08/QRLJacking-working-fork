@@ -313,6 +313,9 @@ class headless_browsers:
             shutil.copytree(src, dest)
         except FileNotFoundError:
             isar_verbosity("COPY CODE ERROR file not found DONT CARE")
+        except IOError:
+            isar_verbosity("Errorno 2 HAHA")
+            pass
         except Exception as e:
             isar_verbosity("ERROR COPY CODE")
             print("  Exception -> "+str(e))
