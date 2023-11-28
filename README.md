@@ -1,3 +1,4 @@
+Use python 3.11
 *QRLJacking* - A New Social Engineering Attack Vector
 ====================
 ![](https://github.com/OWASP/QRLJacking/blob/master/blob/images/QRLJacking.JPG?raw=true)
