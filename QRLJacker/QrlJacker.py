@@ -1,4 +1,4 @@
-#!/usr/bin/python3.7
+#!/usr/bin/python3.11
 # -*- coding: utf-8 -*-
 #Written by: Karim shoair - D4Vinci ( QrlJacker-Framework )
 from sys import version_info as py_ver
